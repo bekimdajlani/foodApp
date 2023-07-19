@@ -4,13 +4,13 @@ import mealImage from '../../assets/meals.jpg';
 import classes from './header.module.css';
 import CartButton from '../UI/HeaderCartButton';
 
-const Header = () => {
+const Header = (props) => {
 
     return (
         <>
             <header className={classes.header}>
                 <h1>Meals</h1>
-                <CartButton>Cart</CartButton>
+                <CartButton onClick={props.onShowCart}>Cart</CartButton>
             </header>
             <div className={classes['main-image']}>
                 <img src={mealImage} alt='A table of food'/>
