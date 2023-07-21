@@ -3,6 +3,7 @@ import { useState } from "react";
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
+import CartProvider from "./store/CartProvider";
 
 function App() {
 
@@ -17,13 +18,13 @@ function App() {
   };
 
   return (
-    <>
+    <CartProvider>
       { cartShow && <Cart onHideCart={handleCloseButtom}/>}
       <Header onShowCart={handleCartShow} /> 
       <main>
         <Meals/>
       </main>
-    </>
+    </CartProvider>
   );
 }
 
