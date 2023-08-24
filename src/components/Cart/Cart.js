@@ -40,7 +40,18 @@ const Cart = (props) => {
 
         const orderHandler = () => {
             setIsCheckout(true);
-        }
+        };
+
+        const submitOrderHandler = (userData) => {
+            fetch(`https://testreactb-default-rtdb.europe-west1.firebasedatabase.app/orders.json`,{
+                method: 'POST',
+                body:JSON.stringify({
+                    user:userData,
+                    orderedItems: cartCtx.items
+                })
+            });
+
+        };
 
     return (
         <Modal onHideCart={props.onHideCart}>
@@ -49,7 +60,7 @@ const Cart = (props) => {
                 <span>Total Amount</span>
                 <span>{totalAmount}</span>
             </div>
-            {isCheckout && <Checkout/>}
+            {isCheckout && <Checkout onConfirm={submitOrderHandler}/>}
             <div className={classes.action}>
                 <button className= {classes['button--alt']} onClick={props.onHideCart}>Close</button>
                 {hasItems && <button className={classes.button} onClick={orderHandler}>Order</button>}
