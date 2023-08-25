@@ -10,6 +10,8 @@ import Checkout from "./Checkout";
 const Cart = (props) => {
 
     const [isCheckout,setIsCheckout] = useState(false); 
+    const [isSubmitting ,setIsSubmitting] = useState(false);
+    const [didSubmit, setDidSubmit] = useState(false);
 
     const cartCtx = useContext(CartContext);
 
@@ -42,15 +44,17 @@ const Cart = (props) => {
             setIsCheckout(true);
         };
 
-        const submitOrderHandler = (userData) => {
-            fetch(`https://testreactb-default-rtdb.europe-west1.firebasedatabase.app/orders.json`,{
+        const submitOrderHandler = async (userData) => {
+            setIsSubmitting(true);
+             const response = await fetch(`https://testreactb-default-rtdb.europe-west1.firebasedatabase.app/orders.json`,{
                 method: 'POST',
                 body:JSON.stringify({
                     user:userData,
                     orderedItems: cartCtx.items
                 })
-            });
-
+            }); 
+            setIsSubmitting(false);
+            setDidSubmit(true);
         };
 
     return (
